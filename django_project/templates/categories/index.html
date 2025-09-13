@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block content %}
+  {% for category in categories %}
+      {% comment %} <h2>{{category.name}}</h2> {% endcomment %}
+      <a class="link" href="/categories/{{ category.id }}/">{{category.name}}</a>
+      <p>{{category.description}}</p>
+  {% endfor %}
+  {% comment %} <p>Категория номер {{ category_id }}</p> {% endcomment %}
+{% endblock %}

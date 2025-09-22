@@ -1,6 +1,6 @@
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.management.base import BaseCommand
 from django_project.articles.models import Article
-
 from django_project.categories.models import Category
 
 class Command(BaseCommand):
@@ -16,9 +16,20 @@ class Command(BaseCommand):
             {'title': '"my first esse"', 'author': 'sergunkit', 'category_id': 3},
         ]
 
-        for item in articles:
-            category_id = item.pop('category_id')
-            category = Category.objects.get(id=category_id)
-            Article.objects.create(category=category, **item)
+        categories = [
+            {'name': 'starwars', 'description': 'somewhere in a galaxy far, far away'},
+            {'name': 'action', 'description': 'if it was true'},
+            {'name': 'triller', 'description': 'scary histories'},
+        ]
+
+        for category in categories:
+            Category.objects.create(**category)
+
+        for article in articles:
+            category_id = article.pop('category_id')
+            category = get_object_or_404(Category, id=category_id)
+            # category = Category.objects.get(id=category_id)
+            Article.objects.create(category=category, **article)
+
 
         self.stdout.write(self.style.SUCCESS('Data imported successfully!'))

@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from .models import Article
+from django_project.categories.models import Category
 
 
 class ArticlesTest(TestCase):
@@ -20,15 +21,24 @@ class ArticlesTest(TestCase):
 
 
     def setUp(self):
-        self.article = Article.objects.create(title="some article", author="john example")
+        self.category = Category.objects.create(name='some category', description='some description')
+        self.article = Article.objects.create(
+            title="some article",
+            author="john example",
+            category=self.category,
+        )
 
 
     def test_article_update_flow(self):
-        update_url = reverse("articles:update", kwargs={"pk": self.article.pk})
-        list_url = reverse("articles:index")
+        update_url = reverse("article_update", kwargs={"id": self.article.id})
+        list_url = reverse("articles_index")
 
         # Отправка POST-запроса на изменение
-        self.client.post(update_url, data={"title": "some Bob", "author": self.article.author})
+        self.client.post(update_url, data={
+            "title": "some Bob",
+            "author": self.article.author,
+            "category": self.category.id,
+        })
 
         # Переход на страницу списка статей
         response = self.client.get(list_url)

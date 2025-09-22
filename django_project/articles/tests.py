@@ -40,6 +40,7 @@ class ArticlesTest(TestCase):
             "category": self.category.id,
         })
 
+
         # Переход на страницу списка статей
         response = self.client.get(list_url)
 

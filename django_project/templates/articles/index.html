@@ -4,11 +4,26 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block content %}
-  {% for article in articles %}
-      <h2>{{article.title}}</h2>
-      <p>{{article.author}}</p>
-  {% endfor %}
-  <p>Статья номер {{ article_id}}</p>
-  <p>Тег {{ tags }}</p>
-  {% endblock %}
+  <div class="container mt-4">
+    <h1>Список статей</h1>
+    <ul>
+      {% for article in articles %}
+      <li>
+        <h2>{{ article.title }}</h2>
+        {% comment %} <a class="link" href="{% url 'articles_detail' article.id %}">Читать</a> {% endcomment %}
+        <a class="link" href="/articles/{{ article.id }}">Читать</a>
+        <p></p>
+        <a href="{% url 'article_update' article.id %}">Редактировать статью</a>
+        <p></p>
+        <a href="{% url 'article_detete' article.id %}">Удалить статью</a>
+        <br></br>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <button class="submit">
+    <a href="{% url 'article_create' %}">Добавить статью</a>
+    {% comment %} <a class="link" href="/articles/create/">Добавить статью</a> {% endcomment %}
+  </button>
+{% endblock %}
 

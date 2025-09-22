@@ -5,14 +5,18 @@ from django_project.categories.models import Category
 class Article(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
-
-
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)
+    # category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True) PROTECT не позволяет удалять категории
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
+
+
+# class ArticleComment(models.Model):
+#     content = models.CharField("content", max_length=100)
 
 # STATUS_CHOICES = [('TR', 'Trainee'), ('JR', 'Junior'), ('SR', 'Senior'), ('CEO', 'CEO')]
 
@@ -20,9 +24,3 @@ class Article(models.Model):
 #     name = models.CharField(max_length=255)
 #     position = models.CharField(max_length=3, choices=STATUS_CHOICES, default='TR')
 
-
-
-# Мы осуществляем связь статей с категориями. Следующий шаг - добавить в данные статей отсылку на категории.
-# Нужно данным придать какой-то смысл для наглядности
-# Затем нужно принять articles в шаблоне категории и сделать отображение статей относящихся к конкретной категории
-# В статье нужно отобразить категорию как ссылку с переходом отображения категории

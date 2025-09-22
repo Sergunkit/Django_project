@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block content %}
+<form action="{% url 'article_create' %}" method="post">
+    {% comment %}Данная инструкция встраивает скрытое поле со случайным кодом, который проверяется Django и защищает от CSRF-атак.{% endcomment %}
+    {% csrf_token %} 
+    <table border="1">
+       {{ form }}
+    </table>
+    <input type="submit" value="Создать статью">
+</form>
+{% if form.errors %}
+<div>
+    <ul>
+    {% for error in form.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

@@ -4,10 +4,18 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block content %}
-  {% for category in categories %}
-      {% comment %} <h2>{{category.name}}</h2> {% endcomment %}
-      <a class="link" href="/categories/{{ category.id }}/">{{category.name}}</a>
-      <p>{{category.description}}</p>
-  {% endfor %}
-  {% comment %} <p>Категория номер {{ category_id }}</p> {% endcomment %}
+<div class="container mt-4">
+  <h1>Список категорий статей</h1>
+  <ul>
+    {% for category in categories %}
+      <li>
+        <a class="link" href="/categories/{{ category.id }}/">{{ category.name }}</a>
+        <p>{{ category.description }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+  <button>
+    <a class="link" href="{% url 'category_create' %}">Создать категорию</a>
+  </button>
+</div>
 {% endblock %}

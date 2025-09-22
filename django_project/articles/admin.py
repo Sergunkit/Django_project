@@ -14,9 +14,9 @@ from django.contrib.admin import DateFieldListFilter
 class ArticleAdmin(admin.ModelAdmin):
     list_display = (
         "title",
-        # "created_at",
+        "category"
     )  # Перечисляем поля, отображаемые в таблице списка статей
     search_fields = ["title", "author"] # По этим полям будет осуществляться поиск.
-    # list_filter = (
-    #     ("created_at", DateFieldListFilter),
-    # )  # Перечисляем поля для фильтрации
+    list_filter = (
+        ("category", DateFieldListFilter),
+    )  # Перечисляем поля для фильтрации

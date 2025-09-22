@@ -1,6 +1,25 @@
-{% extends "base.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
-     <h1>{{ category.name }}</h1>
-    <div>{{ category.description }}</div>
+    <h2>Категория</h2>
+    <h1>"{{ category.name }}"</h1>
+    <div><strong>Описание  </strong>{{ category.description }}</div>
+    <p><a href="{% url 'category_update' category.id %}">Редактировать категорию</a></p>
+    {% comment %} <p><a href="{% url 'category_delete' category.id %}">Удалить категорию</a></p> {% endcomment %}
+    <form action="{% url 'category_delete' category.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Удалить">
+    <br></br>
+    <h3>Статьи категории</h3>
+    {% if articles %}
+        <ol>
+            {% for article in articles %}
+                <li>
+                    <p><a class="link" href="/articles/{{ article.id }}">{{ article.title }}</a></p>
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>Нет статей в этой категории.</p>
+    {% endif %}
 {% endblock %}

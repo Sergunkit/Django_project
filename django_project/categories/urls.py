@@ -10,6 +10,10 @@ from django_project.categories import views
 
 urlpatterns = [
         path('', views.Index.as_view(), name='categories_index'),
-        path('<int:id>/', views.Categories_view.as_view(), name='categories_detail'),
+        path('<int:id>/update/', views.Category_update.as_view(), name='category_update'),
+        path('<int:id>/delete/', views.Category_delete.as_view(), name="category_delete"),
+        path('<int:id>/', views.Category_view.as_view(), name='category_detail'),
+        path('create/', views.CategoryFormView.as_view(), name='category_create'),
 ]
+
 
